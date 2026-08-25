@@ -1,8 +1,9 @@
 // Contenido de toda la guía, organizado por pantallas y agrupado en 5 etapas
 // explícitas: Instalación, Configuración, Qué puede hacer, Mantenimiento y
-// Desinstalar. Basado en el documento de referencia (What'sappfinal.md,
-// corte 24 de agosto de 2026). Regla fija: en ningún texto de aquí se usa
-// el verbo "colocar".
+// Desinstalar. Fuentes: What'sappfinal.md (corte 24 de agosto de 2026),
+// capturas reales de WhatsApp Business 2026 aportadas por la usuaria, y
+// WhatsApp_para_organizaciones_2026.pptx. Regla fija: en ningún texto de
+// aquí se usa el verbo "colocar".
 
 function p(texto) { return `<p>${texto}</p>`; }
 function lista(items, ordenada) {
@@ -64,8 +65,8 @@ const PANTALLAS = {
       },
       {
         valor: "business",
-        etiqueta: "Atender un negocio pequeño",
-        descripcion: "Usted mismo, o una persona, responde a los clientes de una tienda, consultorio o emprendimiento. Le conviene WhatsApp Business App.",
+        etiqueta: "Organizar contactos de un grupo u organización",
+        descripcion: "Usted mismo, u otra persona, organiza contactos y responde mensajes para una organización, fundación, grupo comunitario o negocio pequeño, así no venda nada. Le conviene WhatsApp Business App.",
       },
       {
         valor: "api",
@@ -147,8 +148,8 @@ const PANTALLAS = {
     titulo: "Instalar WhatsApp Business en Android",
     cuerpo: () => `
       ${ilustracionRuta(["Google Play Store", "Buscar “WhatsApp Business”", "Instalar", "Abrir", "Aceptar y continuar"])}
-      ${p("Escoja el país, ingrese el teléfono del negocio, confirme el número y complete la verificación por mensaje de texto o llamada. Con esto termina la instalación.")}
-      ${aviso("Si ya tenía WhatsApp normal, la aplicación le ofrece restaurar esa cuenta. Antes de una migración, haga una copia de respaldo (se lo explicamos en la etapa de mantenimiento).")}
+      ${p("Escoja el país, ingrese el teléfono, confirme el número y complete la verificación por mensaje de texto o llamada. Con esto termina la instalación.")}
+      ${aviso("<strong>¿Ya tenía WhatsApp normal y quiere pasar a WhatsApp Business con el mismo número?</strong> Primero haga una copia de respaldo: en WhatsApp normal, vaya a Ajustes → Chats → Copia de seguridad → Copiar ahora. Después instale WhatsApp Business y, cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.")}
     `,
   },
   "inst-business-descarga-iphone": {
@@ -156,8 +157,25 @@ const PANTALLAS = {
     titulo: "Instalar WhatsApp Business en iPhone",
     cuerpo: () => `
       ${ilustracionRuta(["App Store", "Buscar “WhatsApp Business”", "Obtener", "Abrir", "Aceptar y continuar"])}
-      ${p("Escoja el país, ingrese el teléfono del negocio, confirme el número y complete la verificación que le pida WhatsApp. Con esto termina la instalación.")}
-      ${aviso("Si ya tenía WhatsApp normal, puede restaurar esa cuenta durante el proceso. Antes de migrar, haga una copia de respaldo.")}
+      ${p("Escoja el país, ingrese el teléfono, confirme el número y complete la verificación que le pida WhatsApp. Con esto termina la instalación.")}
+      ${aviso("<strong>¿Ya tenía WhatsApp normal y quiere pasar a WhatsApp Business con el mismo número?</strong> Primero haga una copia de respaldo: en WhatsApp normal, vaya a Ajustes → Chats → Copia de seguridad → Copiar ahora. Después instale WhatsApp Business y, cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.")}
+    `,
+  },
+  "inst-codigo-no-llega": {
+    tipo: "contenido",
+    titulo: "¿No le llegó el código de verificación?",
+    cuerpo: () => `
+      ${aviso("Esto es normal y le puede pasar a cualquiera. No significa que algo esté mal con su cuenta.")}
+      ${lista(
+        [
+          "Espere el tiempo que indique la pantalla y toque “Reenviar código”.",
+          "Si sigue sin llegar, use la opción “Llamarme” para que se lo dicten por una llamada en vez de un mensaje de texto.",
+          "Confirme que escribió bien el número, con el indicativo de país (+57 para Colombia).",
+          "Revise que el celular tenga señal.",
+          "Si nada de esto funciona, apague y encienda el celular, y vuelva a intentar.",
+        ],
+        true
+      )}
     `,
   },
   "inst-api-proceso": {
@@ -197,22 +215,23 @@ const PANTALLAS = {
     cuerpo: (estado) =>
       estado.ruta === "business"
         ? `
-        ${p("Este es el primer paso de configuración: se hace una sola vez, antes de empezar a atender clientes. Meta pide como mínimo nombre comercial, categoría e imagen o logo.")}
+        ${p("Este es el primer paso de configuración: se hace una sola vez, antes de empezar a usarlo.")}
+        ${aviso("Aunque la aplicación se llama “WhatsApp Business”, sirve igual para una organización social, una fundación o un grupo comunitario que no vende nada. Use la categoría que más se le parezca (por ejemplo, “Organización sin fines de lucro” o “Servicio comunitario”) y puede omitir el catálogo si no aplica.")}
         ${tabla(
           ["Dato", "Qué escribir"],
           [
-            ["Nombre", "El nombre real y reconocible del negocio."],
-            ["Foto", "Logo legible o imagen comercial reconocible."],
-            ["Categoría", "La actividad que más se acerque a lo que hace el negocio."],
+            ["Nombre", "El nombre real y reconocible de la organización o del negocio."],
+            ["Foto", "Logo legible o imagen reconocible."],
+            ["Categoría", "La que más se acerque a lo que hace, aunque no venda nada."],
             ["Descripción", "Qué hace, para quién y dónde presta el servicio."],
-            ["Horario", "Horas reales de atención."],
-            ["Dirección", "Solo si le sirve al cliente para visitar el sitio."],
-            ["Correo", "Un correo empresarial que sí revisen."],
+            ["Horario", "Las horas reales en que responde mensajes."],
+            ["Dirección", "Solo si le sirve a alguien para visitar el sitio."],
+            ["Correo", "Un correo que sí revisen."],
             ["Sitio web", "La página oficial, si existe."],
-            ["Catálogo", "Productos o servicios vigentes, si aplica."],
+            ["Catálogo", "Opcional. Solo si de verdad ofrece productos o servicios para mostrar."],
           ]
         )}
-        ${alerta("Evite promesas exageradas, promociones vencidas o una dirección residencial si los clientes nunca deben ir allí. El perfil debe ayudar a reconocer con quién se habla, no engañar.")}
+        ${alerta("Evite promesas exageradas, promociones vencidas o una dirección residencial si nadie debe visitarla. El perfil debe ayudar a reconocer con quién se habla, no engañar.")}
       `
         : `
         ${p("Este es el primer paso de configuración: se hace una sola vez, justo después de instalar.")}
@@ -225,7 +244,7 @@ const PANTALLAS = {
             ["Privacidad", "Restrinja quién ve su foto, su información y quién puede agregarlo a grupos, según lo que usted necesite."],
           ]
         )}
-        ${aviso("Estos ajustes están en Configuración → Perfil, y en Configuración → Privacidad.")}
+        ${aviso("Estos ajustes están en Ajustes, tocando su nombre para editar el perfil, y en Ajustes → Privacidad.")}
       `,
   },
   "config-vincular-pc": {
@@ -233,7 +252,7 @@ const PANTALLAS = {
     titulo: "Conectar WhatsApp a un computador",
     cuerpo: () => `
       ${p("Este paso es opcional. Si quiere escribir desde un computador en vez de depender solo del celular, puede vincularlo. El celular sigue siendo necesario: ahí quedan sus conversaciones, y de vez en cuando debe tener conexión a internet.")}
-      ${ilustracionRuta(["En el computador: abrir web.whatsapp.com", "Aparece un código QR en pantalla", "En el celular: Configuración → Dispositivos vinculados", "Vincular un dispositivo", "Apuntar la cámara del celular al código QR"])}
+      ${ilustracionRuta(["En el computador: abrir web.whatsapp.com", "Aparece un código QR en pantalla", "En el celular: Ajustes → Dispositivos vinculados", "Vincular un dispositivo", "Apuntar la cámara del celular al código QR"])}
       ${aviso("Puede usar el navegador del computador (web.whatsapp.com) o la aplicación de escritorio oficial de WhatsApp: el proceso para vincularlo es el mismo.")}
       ${alerta("Escanee el código QR únicamente cuando usted mismo abrió esa pantalla en el computador. Nunca escanee un código QR que otra persona le pida escanear por teléfono, mensaje o en persona: eso le puede dar a un desconocido acceso a sus conversaciones.")}
       ${p("Más adelante, en la etapa de mantenimiento, le mostramos cómo revisar y cerrar la sesión de un computador vinculado cuando ya no lo use.")}
@@ -244,17 +263,25 @@ const PANTALLAS = {
     titulo: "Verificación en dos pasos",
     cuerpo: () => `
       ${p("Esto se activa una sola vez y protege su cuenta para que nadie más la use desde otro celular.")}
-      ${ilustracionRuta(["Configuración", "Cuenta", "Verificación en dos pasos"])}
+      ${ilustracionRuta(["Ajustes", "Cuenta", "Verificación en dos pasos", "Activar"])}
       ${p("Si su aplicación todavía pide un PIN de seis cifras, no use su fecha de nacimiento, los últimos números de su cédula ni el mismo código de desbloqueo del celular.")}
-      ${p("Si ya le ofrece una contraseña, use una propia de WhatsApp, distinta a la del correo o el banco.")}
+      ${p("Si ya le ofrece una contraseña, use una propia de WhatsApp, distinta a la del correo o el banco. Use lo que le muestre su teléfono: WhatsApp está pasando del código de seis cifras a una contraseña, y no a todas las cuentas les llega el cambio al mismo tiempo.")}
     `,
   },
   "config-correo": {
     tipo: "contenido",
     titulo: "Correo de recuperación",
     cuerpo: () => `
-      ${ilustracionRuta(["Configuración", "Cuenta", "Dirección de correo electrónico", "Añadir correo"])}
-      ${p("Use un correo al que usted todavía pueda entrar. No use el correo antiguo de un trabajo anterior ni una dirección cuya contraseña nadie recuerda.")}
+      ${lista(
+        [
+          "Registre un correo al que usted todavía pueda entrar.",
+          "Confirme el mensaje que le llegue a ese correo.",
+          "Revíselo si cambia de teléfono.",
+        ],
+        true
+      )}
+      ${ilustracionRuta(["Ajustes", "Cuenta", "Dirección de correo electrónico", "Añadir correo"])}
+      ${aviso("No use un correo que nadie recuerde o que ya esté abandonado. Este correo sirve para recuperar su cuenta si algún día pierde el acceso.")}
     `,
   },
   "config-codigo": {
@@ -262,6 +289,7 @@ const PANTALLAS = {
     titulo: "Una regla para recordar siempre",
     cuerpo: () => `
       ${alerta("Nunca comparta su código de registro. Si alguien le escribe o le llama diciendo “le llegó un código por error, ¿me lo dicta?” o “somos soporte de WhatsApp, necesitamos el código”, no lo entregue. WhatsApp nunca lo pide así.")}
+      ${aviso("Si le llega un código que usted no pidió, probablemente alguien más está intentando registrar su número. No lo comparta y esté alerta.")}
       ${p("Con esto termina la configuración de su cuenta.")}
     `,
   },
@@ -326,25 +354,75 @@ const PANTALLAS = {
 
   // ============ ETAPA 3: QUÉ PUEDE HACER ============
 
+  "uso-decision": {
+    tipo: "contenido",
+    titulo: "¿Qué necesita hacer? Elija la herramienta correcta",
+    cuerpo: () => `
+      ${p("Antes de crear cualquier cosa, decida primero qué necesita: eso le dice qué herramienta usar. No todo mensaje necesita un grupo.")}
+      ${tabla(
+        ["Si necesita…", "Use…"],
+        [
+          ["Avisar lo mismo a contactos que ya la reconocen, sin crear un espacio nuevo", "<strong>Difusión</strong>"],
+          ["Conversar y coordinar con un equipo sobre una tarea concreta", "<strong>Grupo</strong>"],
+          ["Organizar varios grupos relacionados bajo una misma organización", "<strong>Comunidad</strong>"],
+          ["Publicar avisos a muchos seguidores, sin que conversen entre ellos", "<strong>Canal</strong>"],
+          ["Atender el caso particular de una sola persona", "<strong>Chat individual</strong> (el chat normal, sin nada más)"],
+        ]
+      )}
+      ${aviso("En las próximas pantallas le explicamos cada una con más calma.")}
+    `,
+  },
   "uso-difusion": {
     tipo: "contenido",
-    titulo: "Listas de difusión",
+    titulo: "Difusiones: lista tradicional y difusión comercial",
     cuerpo: (estado) => `
-      ${p("Úsela cuando quiera avisar lo mismo a varias personas, pero sin armar un grupo. Cada una lo recibe en su conversación privada, no en un chat colectivo. Tiene un tope de 256 contactos por lista, y cada persona debe tener guardado su número para poder recibirla.")}
-      ${ejemplo("“Buenos días. La reunión de la asociación será el jueves a las 10:00 a. m. Este mensaje se envía a quienes solicitaron recibir nuestros avisos.”")}
-      ${aviso("Tener un teléfono guardado en la agenda no significa que esa persona haya autorizado publicidad. Deje siempre una salida sencilla: “Si no desea recibir más avisos por WhatsApp, responda SALIR.”")}
-      ${estado.ruta === "business" ? aviso("Durante 2026 algunas cuentas de WhatsApp Business ya ofrecen difusiones pagas (Business Broadcasts), donde solo se cobra por cada mensaje que sí llega. No está disponible para todas las cuentas ni países; si aparece en su aplicación, ella misma muestra el costo antes de confirmar el envío.") : ""}
+      ${p("Úsela cuando quiera avisar lo mismo a varios contactos que ya reconocen a la organización, sin crear un grupo. Hay dos formas, y no son lo mismo:")}
+      ${tabla(
+        ["", "Lista tradicional", "Difusión comercial"],
+        [
+          ["Costo", "Gratis", "Paga (se cobra por cada mensaje que sí llega)"],
+          ["Contactos", "Hasta 256 por lista", "Depende de la cuenta"],
+          ["Requisito del destinatario", "Debe tener guardado el número de la organización", "Puede llegar a quien no guardó el número"],
+          ["Disponibilidad", "Todas las cuentas", "Solo en algunos países y cuentas"],
+        ]
+      )}
+      ${p("<strong>Crear una lista tradicional:</strong>")}
+      ${ilustracionRuta(["Ajustes", "Difusiones", "Nueva lista de difusión", "Elegir contactos guardados", "Crear"])}
+      ${estado.ruta === "business" ? `${p("<strong>Activar difusiones comerciales (si aparece en su cuenta):</strong>")}${ilustracionRuta(["Menú (los tres puntos)", "Difusiones comerciales", "Continuar", "Botón +", "Escribir el mensaje y elegir destinatarios", "Enviar"])}` : ""}
+      ${p("Para agregar o quitar contactos de una lista ya creada, ábrala y edite los destinatarios desde ahí.")}
+      ${aviso("Antes de cualquier difusión: depure la lista (elimine números antiguos o duplicados), confirme que la persona reconoce a la organización, retire a quien pidió no recibir más mensajes, y envíe solo información que le sirva a esa audiencia. Deje siempre una salida sencilla: “Si no desea recibir más avisos, responda SALIR.”")}
+      ${p("<strong>Cómo saber si el mensaje llegó (los “chulos”):</strong>")}
+      ${lista([
+        "Un solo chulo gris: el mensaje salió, todavía no llegó al teléfono de la persona.",
+        "Dos chulos grises: llegó al teléfono de la persona.",
+        "Dos chulos azules: la persona lo leyó (solo si tiene activada la confirmación de lectura).",
+      ])}
+      ${aviso("Un solo chulo no prueba por qué no llegó: puede ser el teléfono apagado, sin señal, o un bloqueo. Antes de culpar al teléfono o seguir enviando, pruebe con 5 personas conocidas y compare el resultado.")}
+      ${alerta("Si abusa de las difusiones, el mensaje puede quedar solo con un chulo y no llegar, y la cuenta puede recibir una restricción (no poder escribir a chats nuevos) o terminar suspendida.")}
     `,
   },
   "uso-grupos": {
     tipo: "contenido",
-    titulo: "Grupos y la mención @all",
+    titulo: "Grupos: crear, ordenar y poner límites",
     cuerpo: () => `
-      ${p("Úselo cuando todos necesiten hablar con todos: familia, junta de vecinos, equipo de trabajo. Puede tener hasta 1.024 integrantes.")}
-      ${ilustracionRuta(["Nuevo chat", "Nuevo grupo", "Escoger participantes", "Escribir nombre", "Crear"])}
-      ${p("La mención <strong>@all</strong> avisa a todo el grupo a la vez. En grupos de 32 personas o menos, cualquiera puede usarla; en grupos más grandes, solo los administradores.")}
+      ${p("Úselo para conversar y coordinar con un equipo sobre una tarea concreta: organizar una reunión, atender un sector, preparar una actividad. No lo use para avisos generales: ahí sirve mejor un canal o una difusión.")}
+      ${ilustracionRuta(["Nuevo chat", "Nuevo grupo", "Tocar cada contacto que quiera agregar", "Tocar la flecha para continuar", "Escribir el nombre del grupo", "Crear"])}
+      ${p("<strong>Para que no se vuelva un caos:</strong>")}
+      ${lista([
+        "Defina un propósito claro para el grupo, y dígaselo a los integrantes.",
+        "Fije reglas: horario, temas permitidos, cómo se responde.",
+        "Rote la moderación entre varias personas, no la deje en una sola.",
+        "Si el grupo es solo para anuncios, restrinja quién puede escribir a “solo administradores”.",
+        "Fije los mensajes importantes (hasta 4) para que no se pierdan entre la conversación.",
+      ])}
+      ${aviso("Como referencia práctica, no un límite oficial de WhatsApp: si un grupo supera unas 50 personas activas o mezcla varios temas, considere organizar una comunidad con subgrupos por territorio, sector o tarea.")}
+      ${p("Cuando entra alguien nuevo, se le pueden compartir hasta 100 mensajes de los últimos 14 días, para que no llegue perdido.")}
+      ${p("<strong>Permisos del grupo, y por qué importa configurarlos:</strong> en la información del grupo puede definir quién puede enviar mensajes (todos, o solo administradores) y quién puede editar el nombre y la foto del grupo (todos, o solo administradores). Configurarlo bien evita que cualquiera cambie la información sin permiso, o que el grupo se llene de mensajes fuera de lugar.")}
+      ${p("<strong>Agregar o quitar personas:</strong>")}
+      ${lista(["Para agregar: abra la información del grupo → Añadir participante → elija de sus contactos.", "Para quitar: abra la información del grupo → toque el nombre de la persona → Quitar del grupo."])}
+      ${p("<strong>La mención @all:</strong> avisa a todo el grupo a la vez, incluso a quien tiene el grupo silenciado. En grupos de 32 personas o menos, cualquiera puede usarla; en grupos más grandes, solo los administradores.")}
       ${ejemplo("Uso correcto: “@all La reunión de mañana cambió de sede.”")}
-      ${alerta("Evite usar @all para saludos, chistes o promociones repetidas: cada persona puede silenciar esas notificaciones, y su uso constante hace que la gente deje de prestarles atención.")}
+      ${alerta("Evite usar @all para saludos, chistes o promociones repetidas: el abuso hace que la gente también silencie esas menciones, y pierde su utilidad justo cuando de verdad la necesite.")}
       ${p("<strong>Para salir de un grupo sin avisarle a todos:</strong>")}
       ${ilustracionRuta(["Abrir el grupo", "Tocar el nombre del grupo", "Salir del grupo", "Confirmar"])}
       ${aviso("Solo los administradores del grupo reciben el aviso de que usted salió; los demás integrantes no ven un anuncio general en la conversación.")}
@@ -352,41 +430,68 @@ const PANTALLAS = {
   },
   "uso-comunidades": {
     tipo: "contenido",
-    titulo: "Comunidades",
-    cuerpo: (estado) => `
-      ${p("Úsela cuando necesite organizar varios grupos relacionados bajo una misma organización: hasta 100 grupos y 2.000 integrantes en total. Por ejemplo, un conjunto residencial puede tener Torre A, Torre B, Consejo de administración y Actividades dentro de una sola comunidad.")}
-      ${ilustracionRuta(["Comunidades", "Nueva comunidad", "Escribir nombre y descripción", "Agregar o crear grupos"])}
-      ${estado.ruta === "business" ? aviso("WhatsApp Business App no permite crear comunidades todavía; sí puede participar en comunidades creadas desde WhatsApp normal.") : ""}
+    titulo: "Comunidades: organizar varios grupos",
+    cuerpo: () => `
+      ${p("Úsela para reunir varios grupos relacionados bajo una misma organización, con un espacio de anuncios generales que solo los administradores usan para avisar a todos a la vez.")}
+      ${p("Por ejemplo: una comunidad puede tener grupos por Territorios (municipios o regiones), por Organizaciones (asociaciones o sindicatos) y por Sectores (docentes, trabajadores, campesinos), además del espacio de Anuncios generales.")}
+      ${ilustracionRuta(["Comunidades", "Nueva comunidad", "Escribir nombre y descripción", "Agregar grupos existentes o crear grupos nuevos", "Crear"])}
+      ${aviso("Tanto WhatsApp normal como WhatsApp Business permiten crear comunidades.")}
+      ${p("<strong>Agregar o quitar un grupo de la comunidad:</strong>")}
+      ${lista(["Para agregar: dentro de la comunidad → Añadir grupos existentes o Crear grupo nuevo.", "Para quitar: dentro de la comunidad, abra las opciones de ese grupo → Quitar de la comunidad."])}
+      ${aviso("Solo los administradores de la comunidad pueden enviar anuncios generales a todos los grupos a la vez; revise quién tiene ese permiso.")}
     `,
   },
   "uso-canales": {
     tipo: "contenido",
-    titulo: "Canales",
+    titulo: "Canales: publicar sin conversar",
     cuerpo: () => `
-      ${p("Úselo cuando quiera publicar novedades a muchos seguidores sin convertir la comunicación en un grupo: una parroquia, asociación, comercio o institución que quiera avisar a muchas personas sin armar una lista de difusión.")}
+      ${p("Úselo cuando quiera publicar avisos a muchos seguidores, sin que ellos conversen entre sí ni vean los números de los demás.")}
+      ${tabla(["Quién administra", "Quién sigue"], [["Publica texto, fotos, enlaces, videos y encuestas.", "Lee las publicaciones, reacciona con símbolos y vota en encuestas. No puede escribir mensajes que otros vean, ni ver el número de nadie."]])}
       ${ilustracionRuta(["Novedades", "Menú", "Crear canal", "Continuar", "Nombre, descripción e imagen"])}
       ${alerta("Los canales son públicos: WhatsApp no permite crear uno privado. Aun así, el número y la foto personal de quien administra el canal quedan protegidos frente a los seguidores.")}
     `,
   },
   "uso-usuario": {
     tipo: "contenido",
-    titulo: "Nombre de usuario @",
+    titulo: "Nombre de usuario @: dejar de mostrar su número",
     cuerpo: () => `
-      ${p("Úselo si quiere que lo contacten sin revelar de inmediato su número telefónico, por ejemplo <strong>@MariaGomez</strong>.")}
-      ${ilustracionRuta(["Configuración", "Perfil", "Crear nombre de usuario"])}
+      ${p("Antes había que dar el número de teléfono para que alguien le escribiera. Cuando esta función esté activa en su país, puede compartir su @usuario y mantener el número privado en el primer contacto.")}
+      ${ilustracionRuta(["Actualizar WhatsApp a la versión más reciente", "Ajustes", "Cuenta", "Nombre de usuario"])}
+      ${p("Pruebe tres opciones de nombre: entre 3 y 35 caracteres, solo minúsculas, números, punto y guion bajo, sin mayúsculas ni espacios. Anote cuál quedó reservado y quién lo administra.")}
       ${alerta("No use como nombre de usuario su año de nacimiento, su cédula u otra información personal.")}
+      ${aviso("Si todavía no le aparece la opción de crear nombre de usuario, es porque la función no ha llegado a su país o a su cuenta. Espere y revise más adelante.")}
+    `,
+  },
+  "uso-meta-verified": {
+    tipo: "contenido",
+    titulo: "La insignia azul (Meta Verified)",
+    cuerpo: () => `
+      ${p("Es una suscripción paga y opcional de Meta. Da una insignia de cuenta verificada y algunos beneficios adicionales, como más protección contra cuentas falsas que se hagan pasar por la suya.")}
+      ${aviso("No es necesaria para usar WhatsApp Business normalmente. Actívela solo si de verdad la necesita y está dispuesto a pagarla.")}
+      ${ilustracionRuta(["Herramientas", "Meta Verified"])}
     `,
   },
   "uso-respuestas": {
     tipo: "contenido",
-    titulo: "Mensajes de bienvenida, ausencia y respuestas rápidas",
+    titulo: "Bienvenida, ausencia y respuestas guardadas",
     cuerpo: () => `
-      ${p("<strong>Mensaje de bienvenida:</strong> se activa desde Herramientas del negocio.")}
-      ${ejemplo("“Hola. Gracias por comunicarse con [nombre del negocio]. Nuestro horario es de lunes a viernes de 8:00 a. m. a 5:00 p. m. Cuéntenos su nombre y qué está buscando.”")}
-      ${p("<strong>Mensaje de ausencia:</strong> Herramientas → Mensaje de ausencia → activar → editar texto → Programar.")}
-      ${ejemplo("“Gracias por escribirnos. En este momento estamos fuera del horario de atención. Revisaremos su mensaje a partir de las 8:00 a. m. del siguiente día hábil.”")}
-      ${p("<strong>Respuestas rápidas:</strong> textos guardados que se insertan con un atajo, desde Herramientas → Respuestas rápidas → Añadir.")}
-      ${aviso("No pida datos sensibles sin necesidad (cédula completa, tarjetas, contraseñas) y, ante quejas, emergencias o fallecimientos, pase la conversación a una persona en vez de usar una respuesta automática.")}
+      ${p("Hay dos respuestas automáticas y una ayuda manual. Las tres funcionan en chats individuales, no en grupos:")}
+      ${tabla(
+        ["Herramienta", "Cuándo se envía", "Para qué sirve"],
+        [
+          ["Bienvenida", "Con el primer mensaje de una persona, o si pasaron 14 días sin conversar", "Confirma que su consulta llegó"],
+          ["Ausencia", "Fuera del horario que usted defina", "Le dice a la persona cuándo habrá atención"],
+          ["Respuesta guardada", "Cuando quien atiende escribe “/” y elige el atajo", "Responde una pregunta que se repite mucho"],
+        ]
+      )}
+      ${p("<strong>Cómo configurar bienvenida o ausencia:</strong>")}
+      ${ilustracionRuta(["Herramientas para la empresa", "Bienvenida o Ausencia", "Escribir el texto", "Definir horario y destinatarios", "Probar desde otro teléfono"])}
+      ${p("Un buen texto de ausencia dice tres cosas: confirma que el mensaje llegó, da un plazo real, y ofrece una alternativa si es urgente.")}
+      ${tabla(
+        ["No ayuda", "Sí orienta"],
+        [["“Gracias por escribir. En breve le responderemos.” No dice horario, plazo ni otra vía.", "“Recibimos su mensaje. Respondemos de lunes a viernes de 8 a. m. a 5 p. m., en un día hábil. Si es urgente, escriba a [otro contacto].”"]]
+      )}
+      ${aviso("Pruebe la respuesta desde otro teléfono antes de dejarla activa, y no la deje encendida durante el horario normal de atención.")}
     `,
   },
   "uso-agente-ia": {
@@ -397,9 +502,24 @@ const PANTALLAS = {
       ${estado.ruta === "api"
         ? p("En cuentas de la API, se configura y se supervisa desde las herramientas empresariales de Meta (WhatsApp Manager), trabajando junto a Cloud API, no desde la aplicación del celular.")
         : ilustracionRuta(["Herramientas", "AI agent / Agente de IA", "Continuar", "Aceptar"])}
-      ${p("Antes de activarlo, enséñele con información real: horario, catálogo actualizado, direcciones, políticas de cambios, formas de pago y preguntas frecuentes. Deje fuera lo que no necesita para atender.")}
+      ${p("Antes de activarlo, enséñele con información real: horario, catálogo actualizado, direcciones, políticas de cambios, formas de pago y preguntas frecuentes. Deje fuera lo que no necesita para atender. Si su organización no vende productos ni recibe muchas preguntas repetidas, puede que no necesite esta función.")}
       ${estado.ruta === "business" ? alerta("Activar Meta Business Agent puede interferir con las listas de difusión y otras funciones de WhatsApp Business App. Antes de activarlo en el número principal de la organización, haga una prueba en otro número si es posible.") : ""}
       ${aviso("Puede pausarse en cualquier momento desde Herramientas → Su agente de IA → AI replies.")}
+    `,
+  },
+  "uso-otras-funciones-2026": {
+    tipo: "contenido",
+    titulo: "Otras funciones de 2026: no todas están en su cuenta",
+    cuerpo: () => `
+      ${aviso("Estas funciones no aparecen en todas las cuentas ni en todos los países. No prometa ninguna hasta verla activa en la cuenta que va a usar.")}
+      ${lista([
+        "<strong>Difusión comercial:</strong> paga, exige permiso previo del contacto, disponibilidad limitada.",
+        "<strong>Conectar con la plataforma para empresas:</strong> en cuentas habilitadas, WhatsApp Business puede compartir el mismo número con un servicio conectado (se ve en Ajustes → Cuenta → Plataforma para empresas). Sirve si más adelante la organización necesita varios asesores atendiendo a la vez, sin dejar de usar la aplicación del celular.",
+        "<strong>Historial de grupo:</strong> comparte hasta 100 mensajes de los últimos 14 días con quien se une.",
+        "<strong>Archivos PDF:</strong> se pueden marcar y devolver desde el computador.",
+        "<strong>Grabación de llamadas:</strong> solo para el servicio conectado (plataforma para empresas), no para la aplicación normal.",
+        "<strong>Anuncios en Estados y Canales:</strong> disponibilidad y controles distintos según la región.",
+      ])}
     `,
   },
   "uso-api-categorias": {
@@ -433,7 +553,7 @@ const PANTALLAS = {
         "exige mantener abierta una sesión de navegador todo el tiempo;",
         "promete “anti-ban” o dice que puede “saltarse los límites de WhatsApp”.",
       ])}
-      ${p("En el mercado han circulado herramientas con nombres como “WAPI”, “Wappi”, “Sender”, “Rocket” y variantes similares que ofrecen automatizar WhatsApp por fuera de la API oficial. No se trata de juzgar un nombre comercial: lo que importa es cómo se conecta técnicamente a WhatsApp.")}
+      ${p("En el mercado han circulado herramientas con nombres como “SendRocket”, “Wappi” y extensiones de navegador similares que ofrecen automatizar WhatsApp por fuera de la API oficial. No se trata de juzgar un nombre comercial: lo que importa es cómo se conecta técnicamente a WhatsApp.")}
       ${p("Antes de pagar cualquier herramienta, pregunte por escrito:")}
       ${lista([
         "¿Los mensajes salen mediante WhatsApp Business Platform / Cloud API oficial de Meta?",
@@ -443,7 +563,11 @@ const PANTALLAS = {
         "¿Cómo se tramita SALIR o la revocación del permiso?",
         "Si termina el contrato, ¿la organización se lleva su número y su cuenta?",
       ])}
-      ${alerta("WhatsApp relaciona las aplicaciones no oficiales y la extracción masiva de contactos con suspensiones temporales de cuenta, incluso cuando la organización no tenía intención de hacer daño. La calidad de los mensajes y la reacción de los destinatarios también importa: muchos bloqueos o denuncias afectan la cuenta.")}
+      ${tabla(
+        ["Riesgo para el mensaje", "Riesgo para la cuenta"],
+        [["Puede quedar con un solo chulo y no llegar; la difusión pierde alcance.", "Puede recibir una restricción, no poder escribir a chats nuevos, o terminar suspendida."]]
+      )}
+      ${alerta("WhatsApp relaciona las aplicaciones no oficiales y la extracción masiva de contactos con estas restricciones y suspensiones, incluso cuando la organización no tenía intención de hacer daño.")}
     `,
   },
   "uso-fin": {
@@ -462,7 +586,7 @@ const PANTALLAS = {
     titulo: "Copias de respaldo",
     cuerpo: () => `
       ${p("Esto no es de una sola vez: revíselo cada cierto tiempo, y hágalo siempre antes de cambiar de teléfono.")}
-      ${ilustracionRuta(["Configuración", "Chats", "Copia de seguridad", "Copia cifrada de extremo a extremo"])}
+      ${ilustracionRuta(["Ajustes", "Chats", "Copia de seguridad", "Copia cifrada de extremo a extremo"])}
       ${p("Active la copia cifrada de extremo a extremo y guarde muy bien la contraseña o mecanismo de recuperación que elija: perderlo puede complicar la recuperación del respaldo.")}
     `,
   },
@@ -479,11 +603,25 @@ const PANTALLAS = {
     tipo: "contenido",
     titulo: "Revisar los dispositivos vinculados",
     cuerpo: () => `
-      ${p("Revíselo cada cierto tiempo, no solo una vez, y especialmente si vinculó su cuenta a un computador (ver la etapa de configuración).")}
-      ${ilustracionRuta(["Configuración o menú", "Dispositivos vinculados"])}
+      ${p("Revíselo cada mes, y siempre después de prestar su teléfono, especialmente si vinculó su cuenta a un computador (ver la etapa de configuración).")}
+      ${ilustracionRuta(["Ajustes", "Dispositivos vinculados"])}
       ${p("Si ve un computador o navegador que no reconoce, tóquelo y escoja <strong>Cerrar sesión</strong>.")}
       ${aviso("Hágalo especialmente después de usar WhatsApp Web en un computador ajeno, un hotel o una oficina compartida.")}
     `,
+  },
+  "mant-cuenta-comprometida": {
+    tipo: "contenido",
+    titulo: "¿Sospecha que le hackearon la cuenta?",
+    cuerpo: (estado) =>
+      estado.ruta === "api"
+        ? `${p("En una cuenta empresarial, esto casi siempre es un problema de accesos, no del número: revise quién tiene permisos de administrador en la cuenta empresarial de Meta y retire los que no reconozca.")}`
+        : `
+        ${aviso("Muchas personas creen que si les “hackean” WhatsApp, tienen que cambiar de SIM o de número. Casi nunca es así: son dos problemas distintos.")}
+        ${p("<strong>Si ve mensajes que usted no envió, le llegó un código que no pidió, o encuentra un dispositivo vinculado que no reconoce:</strong> eso es alguien usando su cuenta, no su línea telefónica.")}
+        ${lista(["Reinstale WhatsApp con su mismo número (esto cierra la sesión de quien tenga acceso).", "Active la verificación en dos pasos de inmediato.", "Revise los dispositivos vinculados y cierre los que no reconozca."], true)}
+        ${aviso("Ninguno de estos pasos requiere cambiar de número ni de SIM.")}
+        ${p("<strong>Si el celular se queda sin señal de un momento a otro y no puede hacer ni recibir llamadas:</strong> eso sí es un problema con la línea (posible robo o clonación de la SIM), y ahí sí debe contactar de inmediato a su operador de telefonía, no a WhatsApp.")}
+      `,
   },
   "mant-enlaces": {
     tipo: "contenido",
@@ -540,7 +678,7 @@ const PANTALLAS = {
     titulo: "Pasos para Android",
     cuerpo: () => `
       ${ilustracionRuta(["Mantener presionado el ícono de WhatsApp", "Desinstalar", "Confirmar"])}
-      ${p("Si en cambio quiere eliminar la cuenta por completo: Configuración → Cuenta → Eliminar mi cuenta → escribir el número → confirmar.")}
+      ${p("Si en cambio quiere eliminar la cuenta por completo: Ajustes → Cuenta → Eliminar cuenta → escribir el número → confirmar.")}
       ${alerta("Eliminar la cuenta es permanente. Revise primero que su copia de respaldo esté al día.")}
     `,
   },
@@ -549,7 +687,7 @@ const PANTALLAS = {
     titulo: "Pasos para iPhone",
     cuerpo: () => `
       ${ilustracionRuta(["Mantener presionado el ícono de WhatsApp", "Eliminar aplicación", "Confirmar"])}
-      ${p("Si en cambio quiere eliminar la cuenta por completo: Configuración → Cuenta → Eliminar mi cuenta → escribir el número → confirmar.")}
+      ${p("Si en cambio quiere eliminar la cuenta por completo: Ajustes → Cuenta → Eliminar cuenta → escribir el número → confirmar.")}
       ${alerta("Eliminar la cuenta es permanente. Revise primero que su copia de respaldo esté al día.")}
     `,
   },
@@ -557,7 +695,7 @@ const PANTALLAS = {
     tipo: "contenido",
     titulo: "Cómo eliminar la cuenta",
     cuerpo: () => `
-      ${ilustracionRuta(["Configuración", "Cuenta", "Eliminar mi cuenta", "Escribir el número", "Confirmar"])}
+      ${ilustracionRuta(["Ajustes", "Cuenta", "Eliminar cuenta", "Escribir el número", "Confirmar"])}
       ${alerta("Eliminar la cuenta es permanente. Revise primero que su copia de respaldo esté al día.")}
     `,
   },
@@ -619,14 +757,14 @@ function idsConfiguracion(estado) {
 
 function idsUso(ruta) {
   if (ruta === "api") return ["uso-api-categorias", "uso-agente-ia", "uso-apps-externas"];
-  const base = ["uso-difusion", "uso-grupos", "uso-comunidades", "uso-canales", "uso-usuario"];
-  if (ruta === "business") base.push("uso-respuestas", "uso-agente-ia", "uso-apps-externas");
+  const base = ["uso-decision", "uso-difusion", "uso-grupos", "uso-comunidades", "uso-canales", "uso-usuario"];
+  if (ruta === "business") base.push("uso-meta-verified", "uso-respuestas", "uso-agente-ia", "uso-otras-funciones-2026", "uso-apps-externas");
   return base;
 }
 
 function idsMantenimiento(ruta) {
-  if (ruta === "api") return ["mant-salida-personas", "mant-enlaces"];
-  const base = ["mant-respaldo", "mant-actualizar", "mant-dispositivos", "mant-enlaces"];
+  if (ruta === "api") return ["mant-salida-personas", "mant-enlaces", "mant-cuenta-comprometida"];
+  const base = ["mant-respaldo", "mant-actualizar", "mant-dispositivos", "mant-cuenta-comprometida", "mant-enlaces"];
   if (ruta === "business") base.push("mant-salida-personas");
   return base;
 }
@@ -645,7 +783,9 @@ function flujo(estado) {
   if (!listoParaContinuar) return f;
 
   f.push("mapa-etapas");
-  f = f.concat(idsInstalacion(estado.ruta, estado.so), ["inst-fin"]);
+  f = f.concat(idsInstalacion(estado.ruta, estado.so));
+  if (estado.ruta !== "api") f.push("inst-codigo-no-llega");
+  f.push("inst-fin");
   f = f.concat(idsConfiguracion(estado), ["config-fin"]);
   f = f.concat(idsUso(estado.ruta), ["uso-fin"]);
   f = f.concat(idsMantenimiento(estado.ruta), ["mant-fin"]);
