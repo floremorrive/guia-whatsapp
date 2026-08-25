@@ -39,6 +39,8 @@ git push
 
 GitHub Pages vuelve a publicar el sitio automáticamente (puede tardar alrededor de un minuto).
 
+**Importante:** los navegadores (sobre todo en celular) guardan en caché los archivos `.js`. Cada vez que se edite algo dentro de `js/`, hay que subir en 1 el número `?v=` de esos archivos en `index.html`, o quienes ya abrieron la app antes pueden seguir viendo la versión vieja durante un tiempo.
+
 ## Estructura
 
 ```
