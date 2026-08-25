@@ -160,7 +160,7 @@ function renderOpciones(def) {
     ${renderProgreso()}
     <main class="pantalla">
       <h2>${def.titulo}</h2>
-      ${def.intro ? `<p class="intro">${def.intro}</p>` : ""}
+      ${def.intro ? `<div class="intro">${def.intro}</div>` : ""}
       <div class="opciones">${botones}</div>
     </main>
     ${renderNavInferior({ ocultarSeguir: true })}

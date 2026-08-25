@@ -67,7 +67,28 @@ const PANTALLAS = {
   "que-hacer-si-ya-tiene": {
     tipo: "opciones",
     titulo: "Ya tiene WhatsApp normal. ¿Qué quiere hacer?",
-    intro: "Escoja la opción que más se parezca a lo que necesita.",
+    intro: `
+      ${p("Antes de elegir, estas son las razones más comunes para cada camino:")}
+      ${p("<strong>Quédese en WhatsApp normal si:</strong>")}
+      ${lista([
+        "Solo necesita hablar con familia, amigos y conocidos.",
+        "No necesita que su número quede identificado como el de una organización.",
+        "Prefiere la sencillez del WhatsApp normal, sin herramientas que no va a usar.",
+      ])}
+      ${p("<strong>Cámbiese a WhatsApp Business con este mismo número si:</strong>")}
+      ${lista([
+        "De ahora en adelante va a usar este número principalmente para la organización, no para lo personal.",
+        "Quiere un perfil con nombre, categoría y descripción de la organización.",
+        "Le sirven los mensajes de bienvenida, de ausencia y las respuestas guardadas.",
+        "Le basta con un solo número y no le importa dejar de usarlo como personal.",
+      ])}
+      ${p("<strong>Mejor consiga una línea nueva y tenga las dos si:</strong>")}
+      ${lista([
+        "Quiere seguir usando este número con su familia y amigos, tal como está.",
+        "Además necesita un número aparte, dedicado a la organización.",
+        "No quiere mezclar sus contactos personales con los de la organización.",
+      ])}
+    `,
     campo: "ruta",
     opciones: [
       {
@@ -100,7 +121,26 @@ const PANTALLAS = {
   "que-hacer-si-ya-tiene-business": {
     tipo: "opciones",
     titulo: "Ya tiene WhatsApp Business. ¿Qué quiere hacer?",
-    intro: "Escoja la opción que más se parezca a lo que necesita.",
+    intro: `
+      ${p("Antes de elegir, estas son las razones más comunes para cada camino:")}
+      ${p("<strong>Siga en WhatsApp Business si:</strong>")}
+      ${lista([
+        "Todavía necesita el perfil de organización, el catálogo o las respuestas automáticas.",
+        "Una o varias personas siguen atendiendo mensajes con este número, a nombre de la organización.",
+      ])}
+      ${p("<strong>Cámbiese a WhatsApp normal con este mismo número si:</strong>")}
+      ${lista([
+        "Ya no necesita las herramientas de Business (perfil de organización, respuestas automáticas, catálogo).",
+        "Este número va a volver a ser de uso personal.",
+        "Le basta con un solo número y no le importa dejar de usarlo como Business.",
+      ])}
+      ${p("<strong>Mejor consiga una línea nueva y tenga las dos si:</strong>")}
+      ${lista([
+        "Quiere seguir usando este número para la organización, tal como está.",
+        "Además quiere un WhatsApp normal aparte, para su uso personal.",
+        "No quiere mezclar sus contactos personales con los de la organización.",
+      ])}
+    `,
     campo: "ruta",
     opciones: [
       {
