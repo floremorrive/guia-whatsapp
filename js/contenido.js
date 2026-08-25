@@ -61,6 +61,12 @@ const PANTALLAS = {
       { valor: "no", etiqueta: "No, es la primera vez", descripcion: "Vamos a instalar WhatsApp desde cero, según lo que necesite." },
       { valor: "normal", etiqueta: "Sí, ya tengo WhatsApp normal instalado", descripcion: "Le preguntamos qué quiere hacer a partir de ahí." },
       { valor: "business", etiqueta: "Sí, ya tengo WhatsApp Business instalado", descripcion: "Le preguntamos qué quiere hacer a partir de ahí." },
+      {
+        valor: "api",
+        etiqueta: "Quiero usar la API (Business Platform)",
+        descripcion: "No depende de lo que tenga instalado en este teléfono. Es para muchos contactos administrados por varias personas.",
+        set: { ruta: "api" },
+      },
     ],
   },
 
