@@ -175,6 +175,7 @@ const PANTALLAS = {
       ${ilustracionRuta(["Google Play Store", "Buscar “WhatsApp Messenger”", "Instalar", "Abrir"])}
       ${p("Escriba en la tienda exactamente “WhatsApp Messenger” y confirme que el desarrollador que aparece es <strong>WhatsApp LLC</strong>. No use versiones modificadas: pueden dejar la cuenta suspendida temporalmente y ponen en riesgo su información.")}
       ${aviso("Al abrir la aplicación por primera vez, elija Colombia, escriba su número de teléfono y complete la verificación que WhatsApp le pida (mensaje de texto o llamada). Con esto termina la instalación.")}
+      ${alerta("Use un número que sea suyo a largo plazo, no uno que le dio una universidad o una empresa donde trabajó: si un día deja de estudiar o de trabajar ahí, puede perder el acceso a ese número.")}
       ${alerta("Desde el 8 de septiembre de 2026, WhatsApp exige Android 6 o una versión posterior. Si su celular es muy antiguo, revise esto antes de esa fecha.")}
     `,
   },
@@ -184,6 +185,7 @@ const PANTALLAS = {
     cuerpo: () => `
       ${ilustracionRuta(["App Store", "Buscar “WhatsApp Messenger”", "Obtener", "Abrir"])}
       ${p("Confirme que el desarrollador sea <strong>WhatsApp LLC</strong>. Al abrir la aplicación, elija Colombia, escriba su número de teléfono y complete la verificación que le pida WhatsApp. Con esto termina la instalación.")}
+      ${alerta("Use un número que sea suyo a largo plazo, no uno que le dio una universidad o una empresa donde trabajó: si un día deja de estudiar o de trabajar ahí, puede perder el acceso a ese número.")}
       ${alerta("Desde el 30 de noviembre de 2026, WhatsApp exige iOS 15.5 o una versión posterior. Si su iPhone es antiguo, revise esto antes de esa fecha.")}
     `,
   },
@@ -208,6 +210,7 @@ const PANTALLAS = {
         ]
       )}
       ${p("Para conseguir la línea nueva, puede usar una segunda tarjeta SIM (si su celular es “dual SIM”), una eSIM, o pedirle a su operador una línea adicional.")}
+      ${alerta("Que esa línea nueva quede a nombre de la organización, o suya a largo plazo, no de una universidad o una empresa donde trabaja: si un día sale de ahí, se puede perder el acceso al número.")}
       ${aviso("Con ese número nuevo, siga los pasos normales de instalación de WhatsApp Business que le mostramos a continuación.")}
     `,
   },
@@ -251,6 +254,7 @@ const PANTALLAS = {
     cuerpo: () => `
       ${ilustracionRuta(["Google Play Store", "Buscar “WhatsApp Business”", "Instalar", "Abrir", "Aceptar y continuar"])}
       ${p("Escoja el país, ingrese el teléfono, confirme el número y complete la verificación por mensaje de texto o llamada. Con esto termina la instalación.")}
+      ${alerta("Use un número que sea de la organización, o suyo a largo plazo, no uno que le dio la universidad o la empresa donde trabaja: si un día sale de ahí, la organización puede perder el acceso a ese número.")}
     `,
   },
   "inst-business-descarga-iphone": {
@@ -259,6 +263,7 @@ const PANTALLAS = {
     cuerpo: () => `
       ${ilustracionRuta(["App Store", "Buscar “WhatsApp Business”", "Obtener", "Abrir", "Aceptar y continuar"])}
       ${p("Escoja el país, ingrese el teléfono, confirme el número y complete la verificación que le pida WhatsApp. Con esto termina la instalación.")}
+      ${alerta("Use un número que sea de la organización, o suyo a largo plazo, no uno que le dio la universidad o la empresa donde trabaja: si un día sale de ahí, la organización puede perder el acceso a ese número.")}
     `,
   },
   "inst-codigo-no-llega": {
@@ -394,6 +399,7 @@ const PANTALLAS = {
       )}
       ${ilustracionRuta(["Ajustes", "Cuenta", "Dirección de correo electrónico", "Añadir correo"])}
       ${aviso("No use un correo que nadie recuerde o que ya esté abandonado. Este correo sirve para recuperar su cuenta si algún día pierde el acceso.")}
+      ${alerta("No use el correo que le dieron en la universidad o en una empresa donde trabajó. Use uno que sea suyo, o de la organización, a largo plazo: si un día deja de estudiar ahí o sale de ese trabajo, ese correo se puede desactivar y usted pierde el acceso.")}
     `,
   },
   "config-codigo": {
