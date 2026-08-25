@@ -29,16 +29,19 @@ function retroceder() {
   }
 }
 
-function elegirOpcion(campo, valor) {
+function elegirOpcion(campo, valor, extra) {
   estado[campo] = valor;
+  if (extra) Object.assign(estado, extra);
   avanzar();
 }
 
 function reiniciarRuta() {
+  estado.tieneWhatsapp = null;
   estado.ruta = null;
   estado.so = null;
+  estado.estadoPrevio = null;
   estado.politico = null;
-  estado.pantalla = "ruta";
+  estado.pantalla = "estado-whatsapp";
   render();
 }
 
@@ -81,7 +84,7 @@ async function manejarEnvioRegistro(evento) {
     await registrarParticipante(datos);
   }
 
-  estado.pantalla = "ruta";
+  estado.pantalla = "estado-whatsapp";
   render();
 }
 
@@ -163,8 +166,8 @@ function renderOpciones(def) {
     ${renderNavInferior({ ocultarSeguir: true })}
   `;
 
-  nodoApp.querySelectorAll(".opcion").forEach((boton) => {
-    boton.addEventListener("click", () => elegirOpcion(def.campo, boton.dataset.valor));
+  nodoApp.querySelectorAll(".opcion").forEach((boton, i) => {
+    boton.addEventListener("click", () => elegirOpcion(def.campo, def.opciones[i].valor, def.opciones[i].set));
   });
   enlazarNav();
 }
@@ -235,7 +238,7 @@ function render() {
     estado.nombre = registroPrevio.nombre || "";
     estado.correo = registroPrevio.correo || "";
     estado.telefono = registroPrevio.telefono || "";
-    estado.pantalla = "ruta";
+    estado.pantalla = "estado-whatsapp";
   }
   render();
 })();
