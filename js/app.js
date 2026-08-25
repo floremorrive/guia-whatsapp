@@ -102,9 +102,11 @@ function renderProgreso() {
   let i = f.indexOf(estado.pantalla);
   if (i < 0) i = 0;
   const porcentaje = Math.round(((i + 1) / f.length) * 100);
+  const n = etapaDe(estado.pantalla);
+  const etiquetaEtapa = n > 0 ? `Etapa ${n} de 5 · ${NOMBRES_ETAPA[n]}` : NOMBRES_ETAPA[0];
   return `
     <div class="progreso">
-      <div class="texto-progreso">Paso ${i + 1} de ${f.length}</div>
+      <div class="texto-progreso"><strong>${etiquetaEtapa}</strong> — paso ${i + 1} de ${f.length} en total</div>
       <div class="barra"><span style="width:${porcentaje}%"></span></div>
     </div>
   `;
