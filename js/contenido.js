@@ -143,13 +143,74 @@ const PANTALLAS = {
       ${alerta("Desde el 30 de noviembre de 2026, WhatsApp exige iOS 15.5 o una versión posterior. Si su iPhone es antiguo, revise esto antes de esa fecha.")}
     `,
   },
+  "inst-estado-previo": {
+    tipo: "opciones",
+    titulo: "¿Ya tiene WhatsApp instalado en este teléfono?",
+    intro: "WhatsApp normal y WhatsApp Business sí pueden estar los dos en el mismo celular, pero cada uno necesita su propio número: no pueden compartir el mismo número al mismo tiempo, a menos que uno reemplace al otro. Elija su caso:",
+    campo: "estadoPrevio",
+    opciones: [
+      { valor: "nuevo", etiqueta: "No tengo WhatsApp, es la primera vez", descripcion: "Vamos a instalar WhatsApp Business desde cero." },
+      { valor: "migrar", etiqueta: "Ya tengo WhatsApp normal y quiero cambiarme a Business con el mismo número", descripcion: "Su número deja de ser WhatsApp normal y pasa a ser Business. Ya no tendrá los dos con ese número." },
+      { valor: "ambos", etiqueta: "Ya tengo WhatsApp normal y quiero tener también Business, sin dejar el personal", descripcion: "Necesita un número de teléfono adicional para el Business." },
+    ],
+  },
+  "inst-business-segunda-linea": {
+    tipo: "contenido",
+    titulo: "Tener WhatsApp normal y Business a la vez",
+    cuerpo: () => `
+      ${p("Sí se puede: las dos aplicaciones funcionan al mismo tiempo en el mismo celular, pero cada una necesita su propio número. No pueden compartir el mismo número a la vez.")}
+      ${p("<strong>¿Cuándo cambiarse (migrar) y cuándo conseguir una línea nueva?</strong>")}
+      ${tabla(
+        ["Su situación", "Qué le conviene"],
+        [
+          ["Solo necesita un número para todo, y no le importa que su número personal pase a ser el de la organización", "Cambiarse con el mismo número"],
+          ["Quiere mantener su número personal separado del número de la organización, y usar las dos aplicaciones a la vez", "Conseguir una línea nueva"],
+        ]
+      )}
+      ${p("Para conseguir la línea nueva, puede usar una segunda tarjeta SIM (si su celular es “dual SIM”), una eSIM, o pedirle a su operador una línea adicional.")}
+      ${aviso("Con ese número nuevo, siga los pasos normales de instalación de WhatsApp Business que le mostramos a continuación.")}
+    `,
+  },
+  "inst-business-migrar-android": {
+    tipo: "contenido",
+    titulo: "Cambiarse a WhatsApp Business con el mismo número",
+    cuerpo: () => `
+      ${alerta("Al migrar, su número deja de funcionar en WhatsApp normal y pasa a funcionar en WhatsApp Business. Ya no va a tener las dos aplicaciones activas con ese mismo número.")}
+      ${lista(
+        [
+          "En WhatsApp normal: Ajustes → Chats → Copia de seguridad → Copiar ahora.",
+          "Instale WhatsApp Business desde Google Play Store.",
+          "Ábralo, toque Aceptar y continuar, escoja Colombia e ingrese el mismo número que tenía.",
+          "Cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.",
+          "Complete la verificación del número (mensaje de texto o llamada). Con esto termina la instalación.",
+        ],
+        true
+      )}
+    `,
+  },
+  "inst-business-migrar-iphone": {
+    tipo: "contenido",
+    titulo: "Cambiarse a WhatsApp Business con el mismo número",
+    cuerpo: () => `
+      ${alerta("Al migrar, su número deja de funcionar en WhatsApp normal y pasa a funcionar en WhatsApp Business. Ya no va a tener las dos aplicaciones activas con ese mismo número.")}
+      ${lista(
+        [
+          "En WhatsApp normal: Ajustes → Chats → Copia de seguridad → Copiar ahora.",
+          "Instale WhatsApp Business desde App Store.",
+          "Ábralo, toque Aceptar y continuar, escoja Colombia e ingrese el mismo número que tenía.",
+          "Cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.",
+          "Complete la verificación del número que le pida WhatsApp. Con esto termina la instalación.",
+        ],
+        true
+      )}
+    `,
+  },
   "inst-business-descarga-android": {
     tipo: "contenido",
     titulo: "Instalar WhatsApp Business en Android",
     cuerpo: () => `
       ${ilustracionRuta(["Google Play Store", "Buscar “WhatsApp Business”", "Instalar", "Abrir", "Aceptar y continuar"])}
       ${p("Escoja el país, ingrese el teléfono, confirme el número y complete la verificación por mensaje de texto o llamada. Con esto termina la instalación.")}
-      ${aviso("<strong>¿Ya tenía WhatsApp normal y quiere pasar a WhatsApp Business con el mismo número?</strong> Primero haga una copia de respaldo: en WhatsApp normal, vaya a Ajustes → Chats → Copia de seguridad → Copiar ahora. Después instale WhatsApp Business y, cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.")}
     `,
   },
   "inst-business-descarga-iphone": {
@@ -158,7 +219,6 @@ const PANTALLAS = {
     cuerpo: () => `
       ${ilustracionRuta(["App Store", "Buscar “WhatsApp Business”", "Obtener", "Abrir", "Aceptar y continuar"])}
       ${p("Escoja el país, ingrese el teléfono, confirme el número y complete la verificación que le pida WhatsApp. Con esto termina la instalación.")}
-      ${aviso("<strong>¿Ya tenía WhatsApp normal y quiere pasar a WhatsApp Business con el mismo número?</strong> Primero haga una copia de respaldo: en WhatsApp normal, vaya a Ajustes → Chats → Copia de seguridad → Copiar ahora. Después instale WhatsApp Business y, cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.")}
     `,
   },
   "inst-codigo-no-llega": {
@@ -217,33 +277,44 @@ const PANTALLAS = {
         ? `
         ${p("Este es el primer paso de configuración: se hace una sola vez, antes de empezar a usarlo.")}
         ${aviso("Aunque la aplicación se llama “WhatsApp Business”, sirve igual para una organización social, una fundación o un grupo comunitario que no vende nada. Use la categoría que más se le parezca (por ejemplo, “Organización sin fines de lucro” o “Servicio comunitario”) y puede omitir el catálogo si no aplica.")}
+        ${p("<strong>Esto sí conviene hacerlo siempre</strong> (Meta lo pide como mínimo):")}
         ${tabla(
           ["Dato", "Qué escribir"],
           [
             ["Nombre", "El nombre real y reconocible de la organización o del negocio."],
             ["Foto", "Logo legible o imagen reconocible."],
             ["Categoría", "La que más se acerque a lo que hace, aunque no venda nada."],
+          ]
+        )}
+        ${p("<strong>Esto es opcional — complételo si le sirve, según lo que necesite:</strong>")}
+        ${tabla(
+          ["Dato", "Qué escribir"],
+          [
             ["Descripción", "Qué hace, para quién y dónde presta el servicio."],
             ["Horario", "Las horas reales en que responde mensajes."],
             ["Dirección", "Solo si le sirve a alguien para visitar el sitio."],
             ["Correo", "Un correo que sí revisen."],
             ["Sitio web", "La página oficial, si existe."],
-            ["Catálogo", "Opcional. Solo si de verdad ofrece productos o servicios para mostrar."],
+            ["Catálogo", "Solo si de verdad ofrece productos o servicios para mostrar."],
           ]
         )}
         ${alerta("Evite promesas exageradas, promociones vencidas o una dirección residencial si nadie debe visitarla. El perfil debe ayudar a reconocer con quién se habla, no engañar.")}
       `
         : `
         ${p("Este es el primer paso de configuración: se hace una sola vez, justo después de instalar.")}
+        ${p("<strong>Esto sí conviene hacerlo siempre:</strong>")}
         ${tabla(
           ["Campo", "Recomendación"],
           [
             ["Nombre", "El nombre por el que le reconocen su familia y sus amigos."],
             ["Foto", "Una foto clara, si quiere que lo reconozcan fácilmente."],
-            ["Información (“Acerca de”)", "Algo breve. No escriba dirección, cédula ni datos bancarios."],
-            ["Privacidad", "Restrinja quién ve su foto, su información y quién puede agregarlo a grupos, según lo que usted necesite."],
           ]
         )}
+        ${p("<strong>Esto es opcional — decídalo usted, según lo que necesite:</strong>")}
+        ${lista([
+          "Información (“Acerca de”): puede dejarla como está, o escribir algo breve. No incluya dirección, cédula ni datos bancarios.",
+          "Privacidad: usted puede restringir quién ve su foto, su información y quién puede agregarlo a grupos, según lo que necesite.",
+        ])}
         ${aviso("Estos ajustes están en Ajustes, tocando su nombre para editar el perfil, y en Ajustes → Privacidad.")}
       `,
   },
@@ -251,7 +322,7 @@ const PANTALLAS = {
     tipo: "contenido",
     titulo: "Conectar WhatsApp a un computador",
     cuerpo: () => `
-      ${p("Este paso es opcional. Si quiere escribir desde un computador en vez de depender solo del celular, puede vincularlo. El celular sigue siendo necesario: ahí quedan sus conversaciones, y de vez en cuando debe tener conexión a internet.")}
+      ${p("<strong>Esto es opcional — hágalo solo si lo necesita.</strong> Si quiere escribir desde un computador en vez de depender solo del celular, puede vincularlo. El celular sigue siendo necesario: ahí quedan sus conversaciones, y de vez en cuando debe tener conexión a internet.")}
       ${ilustracionRuta(["En el computador: abrir web.whatsapp.com", "Aparece un código QR en pantalla", "En el celular: Ajustes → Dispositivos vinculados", "Vincular un dispositivo", "Apuntar la cámara del celular al código QR"])}
       ${aviso("Puede usar el navegador del computador (web.whatsapp.com) o la aplicación de escritorio oficial de WhatsApp: el proceso para vincularlo es el mismo.")}
       ${alerta("Escanee el código QR únicamente cuando usted mismo abrió esa pantalla en el computador. Nunca escanee un código QR que otra persona le pida escanear por teléfono, mensaje o en persona: eso le puede dar a un desconocido acceso a sus conversaciones.")}
@@ -262,7 +333,7 @@ const PANTALLAS = {
     tipo: "contenido",
     titulo: "Verificación en dos pasos",
     cuerpo: () => `
-      ${p("Esto se activa una sola vez y protege su cuenta para que nadie más la use desde otro celular.")}
+      ${p("<strong>Esto sí conviene hacerlo siempre.</strong> Se activa una sola vez y protege su cuenta para que nadie más la use desde otro celular.")}
       ${ilustracionRuta(["Ajustes", "Cuenta", "Verificación en dos pasos", "Activar"])}
       ${p("Si su aplicación todavía pide un PIN de seis cifras, no use su fecha de nacimiento, los últimos números de su cédula ni el mismo código de desbloqueo del celular.")}
       ${p("Si ya le ofrece una contraseña, use una propia de WhatsApp, distinta a la del correo o el banco. Use lo que le muestre su teléfono: WhatsApp está pasando del código de seis cifras a una contraseña, y no a todas las cuentas les llega el cambio al mismo tiempo.")}
@@ -272,6 +343,7 @@ const PANTALLAS = {
     tipo: "contenido",
     titulo: "Correo de recuperación",
     cuerpo: () => `
+      ${p("<strong>Esto también conviene hacerlo siempre.</strong>")}
       ${lista(
         [
           "Registre un correo al que usted todavía pueda entrar.",
@@ -458,7 +530,7 @@ const PANTALLAS = {
     tipo: "contenido",
     titulo: "Nombre de usuario @: dejar de mostrar su número",
     cuerpo: () => `
-      ${p("Antes había que dar el número de teléfono para que alguien le escribiera. Cuando esta función esté activa en su país, puede compartir su @usuario y mantener el número privado en el primer contacto.")}
+      ${p("<strong>Esto es opcional.</strong> Antes había que dar el número de teléfono para que alguien le escribiera. Cuando esta función esté activa en su país, puede compartir su @usuario y mantener el número privado en el primer contacto.")}
       ${ilustracionRuta(["Actualizar WhatsApp a la versión más reciente", "Ajustes", "Cuenta", "Nombre de usuario"])}
       ${p("Pruebe tres opciones de nombre: entre 3 y 35 caracteres, solo minúsculas, números, punto y guion bajo, sin mayúsculas ni espacios. Anote cuál quedó reservado y quién lo administra.")}
       ${alerta("No use como nombre de usuario su año de nacimiento, su cédula u otra información personal.")}
@@ -517,7 +589,7 @@ const PANTALLAS = {
       ${aviso("Estas funciones no aparecen en todas las cuentas ni en todos los países. No prometa ninguna hasta verla activa en la cuenta que va a usar.")}
       ${lista([
         "<strong>Difusión comercial:</strong> paga, exige permiso previo del contacto, disponibilidad limitada.",
-        "<strong>Conectar con la plataforma para empresas:</strong> en cuentas habilitadas, WhatsApp Business puede compartir el mismo número con un servicio conectado (se ve en Ajustes → Cuenta → Plataforma para empresas). Sirve si más adelante la organización necesita varios asesores atendiendo a la vez, sin dejar de usar la aplicación del celular.",
+        "<strong>Conectar con la plataforma para empresas:</strong> en cuentas habilitadas, WhatsApp Business puede compartir el mismo número con un servicio conectado (se ve en Ajustes → Cuenta → Plataforma para empresas). Sirve si más adelante la organización necesita varios asesores atendiendo a la vez, sin dejar de usar la aplicación del celular. Al conectarla, pregunta si quiere compartir el historial de chats (hasta 6 meses, sin incluir grupos) o empezar de cero con los clientes actuales; elija según si necesita conservar las conversaciones anteriores.",
         "<strong>Historial de grupo:</strong> comparte hasta 100 mensajes de los últimos 14 días con quien se une.",
         "<strong>Archivos PDF:</strong> se pueden marcar y devolver desde el computador.",
         "<strong>Grabación de llamadas:</strong> solo para el servicio conectado (plataforma para empresas), no para la aplicación normal.",
@@ -741,10 +813,15 @@ function etiquetaRuta(ruta) {
   return "WhatsApp";
 }
 
-function idsInstalacion(ruta, so) {
+function idsInstalacion(estado) {
+  const { ruta, so } = estado;
   if (ruta === "normal") return [`inst-normal-descarga-${so}`];
-  if (ruta === "business") return [`inst-business-descarga-${so}`];
   if (ruta === "api") return ["inst-api-proceso"];
+  if (ruta === "business") {
+    if (estado.estadoPrevio === "migrar") return [`inst-business-migrar-${so}`];
+    if (estado.estadoPrevio === "ambos") return ["inst-business-segunda-linea", `inst-business-descarga-${so}`];
+    return [`inst-business-descarga-${so}`];
+  }
   return [];
 }
 
@@ -786,7 +863,8 @@ function flujo(estado) {
   if (!listoParaContinuar) return f;
 
   f.push("mapa-etapas");
-  f = f.concat(idsInstalacion(estado.ruta, estado.so));
+  if (estado.ruta === "business") f.push("inst-estado-previo");
+  f = f.concat(idsInstalacion(estado));
   if (estado.ruta !== "api") f.push("inst-codigo-no-llega");
   f.push("inst-fin");
   f = f.concat(idsConfiguracion(estado), ["config-fin"]);
