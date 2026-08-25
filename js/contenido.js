@@ -431,14 +431,17 @@ const PANTALLAS = {
   "uso-comunidades": {
     tipo: "contenido",
     titulo: "Comunidades: organizar varios grupos",
-    cuerpo: () => `
+    cuerpo: (estado) => `
       ${p("Úsela para reunir varios grupos relacionados bajo una misma organización, con un espacio de anuncios generales que solo los administradores usan para avisar a todos a la vez.")}
       ${p("Por ejemplo: una comunidad puede tener grupos por Territorios (municipios o regiones), por Organizaciones (asociaciones o sindicatos) y por Sectores (docentes, trabajadores, campesinos), además del espacio de Anuncios generales.")}
-      ${ilustracionRuta(["Comunidades", "Nueva comunidad", "Escribir nombre y descripción", "Agregar grupos existentes o crear grupos nuevos", "Crear"])}
-      ${aviso("Tanto WhatsApp normal como WhatsApp Business permiten crear comunidades.")}
-      ${p("<strong>Agregar o quitar un grupo de la comunidad:</strong>")}
-      ${lista(["Para agregar: dentro de la comunidad → Añadir grupos existentes o Crear grupo nuevo.", "Para quitar: dentro de la comunidad, abra las opciones de ese grupo → Quitar de la comunidad."])}
-      ${aviso("Solo los administradores de la comunidad pueden enviar anuncios generales a todos los grupos a la vez; revise quién tiene ese permiso.")}
+      ${estado.ruta === "business"
+        ? `${alerta("WhatsApp Business no permite crear comunidades. Si su organización necesita esta herramienta, alguien debe crearla desde una cuenta de WhatsApp normal; desde ahí puede agregar como miembros a quienes usan WhatsApp Business.")}${aviso("Si a usted lo agregan a una comunidad creada desde WhatsApp normal, sí puede participar en ella y en sus grupos con su cuenta de Business.")}`
+        : `
+          ${ilustracionRuta(["Comunidades", "Nueva comunidad", "Escribir nombre y descripción", "Agregar grupos existentes o crear grupos nuevos", "Crear"])}
+          ${p("<strong>Agregar o quitar un grupo de la comunidad:</strong>")}
+          ${lista(["Para agregar: dentro de la comunidad → Añadir grupos existentes o Crear grupo nuevo.", "Para quitar: dentro de la comunidad, abra las opciones de ese grupo → Quitar de la comunidad."])}
+          ${aviso("Solo los administradores de la comunidad pueden enviar anuncios generales a todos los grupos a la vez; revise quién tiene ese permiso.")}
+        `}
     `,
   },
   "uso-canales": {
