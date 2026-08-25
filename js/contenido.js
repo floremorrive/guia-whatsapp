@@ -40,7 +40,7 @@ const NOMBRES_ETAPA = {
 };
 
 function etapaDe(idPantalla) {
-  if (["estado-whatsapp", "que-hacer-si-ya-tiene", "ruta", "so", "mapa-etapas"].includes(idPantalla)) return 0;
+  if (["estado-whatsapp", "que-hacer-si-ya-tiene", "que-hacer-si-ya-tiene-business", "ruta", "so", "mapa-etapas"].includes(idPantalla)) return 0;
   if (["api-uso-requisitos", "api-politico-pregunta", "api-politico-alerta"].includes(idPantalla)) return 2;
   if (idPantalla.indexOf("inst-") === 0) return 1;
   if (idPantalla.indexOf("config-") === 0) return 2;
@@ -59,7 +59,8 @@ const PANTALLAS = {
     campo: "tieneWhatsapp",
     opciones: [
       { valor: "no", etiqueta: "No, es la primera vez", descripcion: "Vamos a instalar WhatsApp desde cero, según lo que necesite." },
-      { valor: "si", etiqueta: "Sí, ya tengo WhatsApp normal instalado", descripcion: "Le preguntamos qué quiere hacer a partir de ahí." },
+      { valor: "normal", etiqueta: "Sí, ya tengo WhatsApp normal instalado", descripcion: "Le preguntamos qué quiere hacer a partir de ahí." },
+      { valor: "business", etiqueta: "Sí, ya tengo WhatsApp Business instalado", descripcion: "Le preguntamos qué quiere hacer a partir de ahí." },
     ],
   },
 
@@ -92,6 +93,33 @@ const PANTALLAS = {
         etiqueta: "Usar WhatsApp Business Platform (API) para la organización",
         descripcion: "Varios asesores, CRM o campañas grandes. No depende de este número personal.",
         set: {},
+      },
+    ],
+  },
+
+  "que-hacer-si-ya-tiene-business": {
+    tipo: "opciones",
+    titulo: "Ya tiene WhatsApp Business. ¿Qué quiere hacer?",
+    intro: "Escoja la opción que más se parezca a lo que necesita.",
+    campo: "ruta",
+    opciones: [
+      {
+        valor: "business",
+        etiqueta: "Seguir usando Business y revisar su configuración",
+        descripcion: "No necesita instalar nada más. Repasamos su perfil, su seguridad y todo lo que puede aprovechar (difusiones, respuestas automáticas, Meta Verified y más).",
+        set: { estadoPrevio: "ya-tiene" },
+      },
+      {
+        valor: "normal",
+        etiqueta: "Cambiarme de Business a WhatsApp normal con este mismo número",
+        descripcion: "Su número deja de ser Business y pasa a ser WhatsApp normal.",
+        set: { estadoPrevio: "migrar-a-normal" },
+      },
+      {
+        valor: "normal",
+        etiqueta: "Tener también WhatsApp normal, sin dejar el Business",
+        descripcion: "Necesita un número de teléfono adicional para el WhatsApp normal.",
+        set: { estadoPrevio: "ambos-desde-business" },
       },
     ],
   },
@@ -194,6 +222,57 @@ const PANTALLAS = {
     titulo: "Ya tiene WhatsApp instalado",
     cuerpo: () => `
       ${p("Como ya tiene WhatsApp normal funcionando en este número, no necesita instalar nada más. Sigamos revisando su perfil y la seguridad de su cuenta, para que todo quede bien configurado.")}
+    `,
+  },
+  "inst-business-ya-tiene": {
+    tipo: "contenido",
+    titulo: "Ya tiene WhatsApp Business instalado",
+    cuerpo: () => `
+      ${p("Como ya tiene WhatsApp Business funcionando en este número, no necesita instalar nada más. Sigamos revisando su perfil, la seguridad de su cuenta, y todo lo que puede aprovechar y todavía no ha configurado.")}
+    `,
+  },
+  "inst-normal-migrar-android": {
+    tipo: "contenido",
+    titulo: "Cambiarse de Business a WhatsApp normal con el mismo número",
+    cuerpo: () => `
+      ${alerta("Al migrar, su número deja de funcionar en WhatsApp Business y pasa a funcionar en WhatsApp normal. Ya no va a tener las dos aplicaciones activas con ese mismo número.")}
+      ${lista(
+        [
+          "En WhatsApp Business: Ajustes → Chats → Copia de seguridad → Copiar ahora.",
+          "Instale WhatsApp Messenger (el normal) desde Google Play Store.",
+          "Ábralo, escoja Colombia e ingrese el mismo número que tenía.",
+          "Cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.",
+          "Complete la verificación del número (mensaje de texto o llamada). Con esto termina la instalación.",
+        ],
+        true
+      )}
+    `,
+  },
+  "inst-normal-migrar-iphone": {
+    tipo: "contenido",
+    titulo: "Cambiarse de Business a WhatsApp normal con el mismo número",
+    cuerpo: () => `
+      ${alerta("Al migrar, su número deja de funcionar en WhatsApp Business y pasa a funcionar en WhatsApp normal. Ya no va a tener las dos aplicaciones activas con ese mismo número.")}
+      ${lista(
+        [
+          "En WhatsApp Business: Ajustes → Chats → Copia de seguridad → Copiar ahora.",
+          "Instale WhatsApp Messenger (el normal) desde App Store.",
+          "Ábralo, escoja Colombia e ingrese el mismo número que tenía.",
+          "Cuando la aplicación pregunte, toque Restaurar para recuperar sus chats.",
+          "Complete la verificación del número que le pida WhatsApp. Con esto termina la instalación.",
+        ],
+        true
+      )}
+    `,
+  },
+  "inst-normal-segunda-linea": {
+    tipo: "contenido",
+    titulo: "Tener WhatsApp Business y normal a la vez",
+    cuerpo: () => `
+      ${p("Sí se puede: las dos aplicaciones funcionan al mismo tiempo en el mismo celular, pero cada una necesita su propio número. No pueden compartir el mismo número a la vez.")}
+      ${p("Para conseguir la línea nueva, puede usar una segunda tarjeta SIM (si su celular es “dual SIM”), una eSIM, o pedirle a su operador una línea adicional.")}
+      ${alerta("Que esa línea nueva sea suya a largo plazo, no de una universidad o una empresa donde trabaja: si un día sale de ahí, se puede perder el acceso al número.")}
+      ${aviso("Con ese número nuevo, siga los pasos normales de instalación de WhatsApp normal que le mostramos a continuación.")}
     `,
   },
   "inst-business-segunda-linea": {
@@ -863,10 +942,13 @@ function idsInstalacion(estado) {
   const { ruta, so } = estado;
   if (ruta === "normal") {
     if (estado.estadoPrevio === "ya-tiene") return ["inst-normal-ya-tiene"];
+    if (estado.estadoPrevio === "migrar-a-normal") return [`inst-normal-migrar-${so}`];
+    if (estado.estadoPrevio === "ambos-desde-business") return ["inst-normal-segunda-linea", `inst-normal-descarga-${so}`];
     return [`inst-normal-descarga-${so}`];
   }
   if (ruta === "api") return ["inst-api-proceso"];
   if (ruta === "business") {
+    if (estado.estadoPrevio === "ya-tiene") return ["inst-business-ya-tiene"];
     if (estado.estadoPrevio === "migrar") return [`inst-business-migrar-${so}`];
     if (estado.estadoPrevio === "ambos") return ["inst-business-segunda-linea", `inst-business-descarga-${so}`];
     return [`inst-business-descarga-${so}`];
@@ -907,7 +989,9 @@ function flujo(estado) {
   let f = ["estado-whatsapp"];
   if (!estado.tieneWhatsapp) return f;
 
-  f.push(estado.tieneWhatsapp === "si" ? "que-hacer-si-ya-tiene" : "ruta");
+  if (estado.tieneWhatsapp === "no") f.push("ruta");
+  else if (estado.tieneWhatsapp === "normal") f.push("que-hacer-si-ya-tiene");
+  else if (estado.tieneWhatsapp === "business") f.push("que-hacer-si-ya-tiene-business");
   if (!estado.ruta) return f;
 
   if (estado.ruta !== "api") f.push("so");
